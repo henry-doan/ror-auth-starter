@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { AuthConsumer } from "../../providers/AuthProvider";
+import { Form, Card } from 'react-bootstrap';
+import { FormCard, MainBtn } from '../../styles/sharedStyles';
 
 const Login = ({ handleLogin }) => {
   const [user, setUser] = useState({ email: '', password: '' })
@@ -11,29 +13,41 @@ const Login = ({ handleLogin }) => {
   
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          autoFocus
-          required         
-          name='email'
-          value={user.email}
-          placeholder='Email'
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-        <label>Password</label>
-        <input
-          required
-          name='password'
-          value={user.password}
-          placeholder='Password'
-          type='password'
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-        <button type='submit'>Submit</button>
-      </form>
+      <FormCard>
+        <Card.Body>
+          <h1 className='text-center'>Login</h1>
+          <br />
+          <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label>Email address</Form.Label>
+              <Form.Control 
+                type="email" 
+                autoFocus
+                required         
+                name='email'
+                value={user.email}
+                placeholder='Email'
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control 
+                type="password" 
+                value={user.password}
+                required
+                placeholder='Password'
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+              />
+            </Form.Group>
+            <br />
+            <MainBtn type="submit">
+              Submit
+            </MainBtn>
+          </Form>
+        </Card.Body>
+      </FormCard>
     </>
   )  
 }

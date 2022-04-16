@@ -1,24 +1,25 @@
 import Home from './components/shared/Home';
 import NoMatch from './components/shared/NoMatch';
-import Navbar from './components/shared/Navbar';
+import MainNavbar from './components/shared/MainNavbar';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import { Routes, Route } from 'react-router-dom';
 import FetchUser from './components/auth/FetchUser';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import { Container } from 'react-bootstrap';
 
 const App = () => (
   <>
-    <Navbar />
+    <MainNavbar />
     <FetchUser>
-      <>
+      <Container>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route component={NoMatch} />
         </Routes>
-      </>
+      </Container>
     </FetchUser>
   </>
 )

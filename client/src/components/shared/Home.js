@@ -1,5 +1,5 @@
 const Home = () => (
-  <h3>Starter Auth app</h3>
+  <h3 className="text-center">Starter Auth app</h3>
 )
 
 export default Home;
