@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { Form, Card } from 'react-bootstrap';
 import { FormCard, MainBtn } from '../../styles/sharedStyles';
+import Flash from '../shared/Flash';
 
-const Register = ({ handleRegister }) => {
+const Register = ({ handleRegister, errors, setErrors }) => {
   const [user, setUser] = useState({ email: '', password: '', passwordConfirmation: '' }) 
   
+  useEffect(() => {
+    
+    // returned function will be called on component unmount 
+    return () => {
+      setErrors(null)
+    }
+  }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user.password === user.passwordConfirmation) {
@@ -16,7 +25,16 @@ const Register = ({ handleRegister }) => {
   }
   
   return (
-    <>         
+    <>   
+      { errors ?
+        <Flash 
+          variant={errors.variant}
+          msg={errors.msg}
+          setErrors={setErrors}
+        />
+        :
+        null
+      }      
       <FormCard>
         <Card.Body>
           <h1 className='text-center'>Register</h1>

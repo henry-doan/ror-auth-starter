@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { Form, Card } from 'react-bootstrap';
 import { FormCard, MainBtn } from '../../styles/sharedStyles';
+import Flash from '../shared/Flash';
 
-const Login = ({ handleLogin }) => {
+const Login = ({ handleLogin, errors, setErrors }) => {
   const [user, setUser] = useState({ email: '', password: '' })
+  
+  useEffect(() => {
+    
+    // returned function will be called on component unmount 
+    return () => {
+      setErrors(null)
+    }
+  }, [])
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,6 +22,15 @@ const Login = ({ handleLogin }) => {
   
   return (
     <>
+      { errors ?
+        <Flash 
+          variant={errors.variant}
+          msg={errors.msg}
+          setErrors={setErrors}
+        />
+        :
+        null
+      } 
       <FormCard>
         <Card.Body>
           <h1 className='text-center'>Login</h1>
